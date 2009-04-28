@@ -10,13 +10,13 @@ Note: one of the tests requires mocha, but you have it installed already don't y
   
 == Macros
   
-  * should_accept_nested_attributes_for :foo, :bar
-  * should_act_as_taggable_on :category_name
-  * should_be ClassName
-  * should_callback :method_name, :after_save
-  * should_delegate :foo, :bar, :to => :elsewhere
-  * should_have_attached_file :picture
-  * should_validate_associated :foo, :bar
+* should_accept_nested_attributes_for :foo, :bar
+* should_act_as_taggable_on :category_name
+* should_be ClassName
+* should_callback :method_name, :after_save
+* should_delegate :foo, :bar, :to => :elsewhere
+* should_have_attached_file :picture
+* should_validate_associated :foo, :bar
 
 == License
 Copyright (c) 2009 Maxim Chernyak
