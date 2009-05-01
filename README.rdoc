@@ -15,7 +15,6 @@ Note: one of the tests requires mocha, but you have it installed already don't y
 * should_be ClassName
 * should_callback :method_name, :after_save
 * should_delegate :foo, :bar, :to => :elsewhere
-* should_have_attached_file :picture
 * should_validate_associated :foo, :bar
 
 == License
