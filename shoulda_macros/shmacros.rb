@@ -69,11 +69,11 @@ module Shmacros
       klass = self.name.gsub(/Test$/, '').constantize
       callback_type = meths.delete(meths.last).to_s
         
-      for meth in meths
+      meths.each do |meth|
         have_certain_callback = "call ##{meth} #{callback_type.to_s.gsub(/_/, ' ')}"
         should have_certain_callback do
           existing_callbacks = klass.send(callback_type)
-          result = existing_callbacks.detect { |callback| callback.kind == callback_type.to_sym && callback.method == meth.to_sym }
+          result = existing_callbacks.detect { |callback| callback.method == meth.to_sym }
           assert_not_nil result, "##{meth} is not called #{callback_type.to_s.gsub(/_/, ' ')}"
         end
       end
