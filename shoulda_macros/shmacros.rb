@@ -1,6 +1,30 @@
 module Shmacros
   module Units
     ##
+    #  Asserts that model is not valid for specific attribute values.
+    #
+    #    should_invalidate :country => %w(Africa Europe), :zipcode => "fake_code"
+    #
+    def should_invalidate(options)
+      klass = self.name.gsub(/Test$/, '').constantize
+
+      context "#{klass}" do
+        options.each_pair do |attribute, values|
+          [*values].each do |value|
+            should "not allow #{attribute} to be \"#{value}\"" do
+              instance = get_instance_of(klass)
+              instance.send("#{attribute}=", value)
+              assert !instance.valid?, 
+                "Expected #{klass} to be invalid when #{attribute} is set to \"#{value}\""
+              assert instance.errors.on(attribute.to_sym), 
+                "Expected errors on #{attribute} when set to \"#{value}\""
+            end
+          end
+        end
+      end
+    end
+    
+    ##
     #  Asserts that model has accept_nested_attribtues_for defined for specific models.
     #
     #    should_accept_nested_attributes_for :foo, :bar 

@@ -16,6 +16,7 @@ Note: one of the tests requires mocha, but you have it installed already don't y
 * should_callback :method_name, :after_save
 * should_delegate :foo, :bar, :to => :elsewhere
 * should_validate_associated :foo, :bar
+* should_invalidate :country => %w(Africa Europe), :zipcode => "fake_code"
 
 == License
 Copyright (c) 2009 Maxim Chernyak
