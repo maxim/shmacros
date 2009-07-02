@@ -1,6 +1,23 @@
 module Shmacros
   module Units
     ##
+    #  Adds option :strict => true for should_allow_mass_assignment_of
+    #  
+    #  When :strict is true the test explicitly verifies that 
+    #  all non-listed attributes are actually protected.
+    #
+    #    should_allow_mass_assignment_of :foo, :bar, :strict => true
+    #
+    def should_allow_mass_assignment_of(*attributes, &blk)
+      options = attributes.extract_options!
+      super(*attributes, &blk)
+      if options[:strict]
+        klass = self.name.gsub(/Test$/, '').constantize
+        should_not_allow_mass_assignment_of *(get_instance_of(klass).attribute_names - attributes.map(&:to_s))
+      end
+    end
+    
+    ##
     #  Asserts that model is valid for specific attribute values.
     #
     #    should_allow_values :country => %w(England Russia), :zipcode => "55555"
