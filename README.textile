@@ -12,35 +12,35 @@ h2. Macros
   
 h4. should_accept_nested_attributes_for :foo, :bar
 
-Verifies that accepts_nested_attribtes_for is declared for given attributes
+Verifies that accepts_nested_attribtes_for is declared for given attributes.
 
 h4. should_act_as_taggable_on :category_name
 
-Verifies that acts_as_taggable_on is declared for optionally given category
+Verifies that acts_as_taggable_on is declared for optionally given category.
 
 h4. should_be ClassName
 
-Verifies that tested model is_a?(ClassName)
+Verifies that tested model is_a?(ClassName).
 
 h4. should_callback :method_name, :after_save
 
-Verifies that given callback (:method_name) is declared for given event (:after_save)
+Verifies that given callback (:method_name) is declared for given event (:after_save).
 
 h4. should_delegate :foo, :bar, :to => :elsewhere
 
-Verifies that #delegates is declared for given method to given destination
+Verifies that #delegates is declared for given method to given destination.
 
 h4. should_validate_associated :foo, :bar
 
-Verifies that validates_associated is declared for given attributes
+Verifies that validates_associated is declared for given attributes.
  
 h4. should_deny_values :country => %w(Africa Europe), :zipcode => "fake_code"
 
-Verifies that tested model is invalid when given attributes are assigned corresponding values
+Verifies that tested model is invalid when given attributes are assigned corresponding values.
 
 h4. should_allow_values :country => %w(England Russia), :zipcode => "55555"
 
-Verifies that tested model is valid when given attributes are assigned corresponding values
+Verifies that tested model is valid when given attributes are assigned corresponding values.
 
 h4. should_allow_mass_assignment_of :foo, :bar, :strict => true
 
