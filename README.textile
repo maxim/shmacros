@@ -46,8 +46,15 @@ h4. should_allow_mass_assignment_of :foo, :bar, :strict => true
 
 Overrides Shoulda's should_allow_mass_assignment_of to add the convenience option :strict => true. When :strict is true every non-listed attribute is explicitly tested for mass assignment protection.
 
+h2. Contact/Contribute
+
+If you'd like to comment on something -- I'm "@hakunin":http://twitter.com/hakunin on twitter.
+My "blog":http://mediumexposure.com has more ways to reach me. 
+For contributions simply fork, change, commit, send me pull requests.
+
 h2. License
-Copyright (c) 2009 Maxim Chernyak
+
+Copyright (c) 2009 "Maxim Chernyak":http://mediumexposure.com
  
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
