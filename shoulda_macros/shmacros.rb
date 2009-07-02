@@ -1,23 +1,50 @@
 module Shmacros
   module Units
     ##
-    #  Asserts that model is not valid for specific attribute values.
+    #  Asserts that model is valid for specific attribute values.
     #
-    #    should_invalidate :country => %w(Africa Europe), :zipcode => "fake_code"
-    #
-    def should_invalidate(options)
+    #    should_allow_values :country => %w(England Russia), :zipcode => "55555"
+    #    
+    def should_allow_values(options)
       klass = self.name.gsub(/Test$/, '').constantize
 
       context "#{klass}" do
         options.each_pair do |attribute, values|
           [*values].each do |value|
-            should "not allow #{attribute} to be \"#{value}\"" do
+            display_value = value.class == NilClass ? "nil" : "\"#{value}\""
+            
+            should "allow #{attribute} to be #{display_value}" do
+              instance = get_instance_of(klass)
+              instance.send("#{attribute}=", value)
+              assert instance.valid?, 
+                "Expected #{klass} to be valid when #{attribute} is set to #{display_value}, 
+                instead found error \"#{instance.errors.on(attribute)}\"."
+            end
+          end
+        end
+      end
+    end
+    
+    ##
+    #  Asserts that model is not valid for specific attribute values.
+    #
+    #    should_deny_values :country => %w(Africa Europe), :zipcode => "fake_code"
+    #
+    def should_deny_values(options)
+      klass = self.name.gsub(/Test$/, '').constantize
+
+      context "#{klass}" do
+        options.each_pair do |attribute, values|
+          [*values].each do |value|
+            display_value = value.class == NilClass ? "nil" : "\"#{value}\""
+            
+            should "not allow #{attribute} to be #{display_value}" do
               instance = get_instance_of(klass)
               instance.send("#{attribute}=", value)
               assert !instance.valid?, 
-                "Expected #{klass} to be invalid when #{attribute} is set to \"#{value}\""
+                "Expected #{klass} to be invalid when #{attribute} is set to #{display_value}"
               assert instance.errors.on(attribute.to_sym), 
-                "Expected errors on #{attribute} when set to \"#{value}\""
+                "Expected errors on #{attribute} when set to #{display_value}"
             end
           end
         end
