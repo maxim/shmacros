@@ -33,8 +33,8 @@ module Shmacros
             should "allow #{attribute} to be #{display_value}" do
               instance = get_instance_of(klass)
               instance.send("#{attribute}=", value)
-              assert instance.valid?, 
-                "Expected #{klass} to be valid when #{attribute} is set to #{display_value}, 
+              assert_nil instance.errors.on(attribute), 
+                "Expected no errors when #{attribute} is set to #{display_value}, 
                 instead found error \"#{instance.errors.on(attribute)}\"."
             end
           end
