@@ -13,7 +13,7 @@ module Shmacros
       super(*attributes, &blk)
       if options[:strict]
         klass = self.name.gsub(/Test$/, '').constantize
-        should_not_allow_mass_assignment_of *(get_instance_of(klass).attribute_names - attributes.map(&:to_s))
+        should_not_allow_mass_assignment_of *(klass.new.attribute_names - attributes.map(&:to_s))
       end
     end
     
@@ -173,9 +173,21 @@ module Shmacros
           should "delegate #{method} to #{client}" do
             method_name = "#{prefix}#{method}"
             obj = klass.new
-            assert obj.respond_to?(method), "Method #{method} is not delegated."
+            assert obj.respond_to?(method), "Method ##{method} is not delegated."
+            obj.stubs(client).returns(mock) if obj.send(client).nil?
             obj.send(client).expects(method_name).once
             obj.send(method)
+            
+            obj.stubs(client).returns(nil)
+            if options[:allow_nil]
+              assert_nothing_raised("Delegation must allow nil as recipient, but doesn't.") do
+                obj.send(method)
+              end
+            else
+              assert_raise(RuntimeError, "Delegation allows recipient to be nil, however it shouldn't.") do
+                obj.send(method)
+              end
+            end
           end
         end
       end
