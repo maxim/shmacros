@@ -26,9 +26,9 @@ h4. should_callback :method_name, :after_save
 
 Verifies that given callback (:method_name) is declared for given event (:after_save).
 
-h4. should_delegate :foo, :bar, :to => :elsewhere
+h4. should_delegate :foo, :bar, :to => :elsewhere, :allow_nil => true
 
-Verifies that #delegates is declared for given method to given destination.
+Verifies that #delegates is declared for given method to given destination. Also tests :allow_nil functionality introduced in Rails 2.3.3.
 
 h4. should_validate_associated :foo, :bar
 
@@ -37,10 +37,12 @@ Verifies that validates_associated is declared for given attributes.
 h4. should_deny_values :country => %w(Africa Europe), :zipcode => "fake_code"
 
 Verifies that tested model is invalid when given attributes are assigned corresponding values.
+As opposed to shoulda's similar method, this implementation doesn't compare error messages, just checks for error presence on attribute.
 
 h4. should_allow_values :country => %w(England Russia), :zipcode => "55555"
 
 Verifies that tested model is valid when given attributes are assigned corresponding values.
+As opposed to shoulda's similar method, this implementation doesn't compare error messages, just checks for error presence on attribute.
 
 h4. should_allow_mass_assignment_of :foo, :bar, :strict => true
 
