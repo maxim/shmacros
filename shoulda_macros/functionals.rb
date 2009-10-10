@@ -15,35 +15,40 @@ module Shmacros
       controller = self.name.gsub(/ControllerTest$/, '').underscore
       options = actions.extract_options!
       plural = options[:singular] ? nil : true
-      actions = actions.empty? ? [:index, :show, :new, :create, :edit, :update, :destroy] : actions
+      controller_segment = plural ? controller : controller.singularize
+      if plural
+        actions = actions.empty? ? [:index, :show, :new, :create, :edit, :update, :destroy] : actions
+      else
+        actions = actions.empty? ? [:show, :new, :create, :edit, :update, :destroy] : actions
+      end
 
       actions.each do |action|
         case action
         when :index
           method = :get
-          url = "/#{controller}"
+          url = "/#{controller_segment}"
         when :show
           id = plural && 1
           method = :get
-          url = "/#{controller}#{plural && '/1'}"
+          url = "/#{controller_segment}#{plural && '/1'}"
         when :new
           method = :get
-          url = "/#{controller}/new"
+          url = "/#{controller_segment}/new"
         when :create
           method = :post
-          url = "/#{controller}"
+          url = "/#{controller_segment}"
         when :edit
           id = plural && 1
           method = :get
-          url = "/#{controller}#{plural && '/1'}/edit"
+          url = "/#{controller_segment}#{plural && '/1'}/edit"
         when :update
           id = plural && 1
           method = :put
-          url = "/#{controller}#{plural && '/1'}"
+          url = "/#{controller_segment}#{plural && '/1'}"
         when :destroy
           id = plural && 1
           method = :delete
-          url = "/#{controller}#{plural && '/1'}"
+          url = "/#{controller_segment}#{plural && '/1'}"
         end
         id ||= nil
 
