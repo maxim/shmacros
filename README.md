@@ -1,7 +1,7 @@
 Shmacros
 ========
 
-Pack of shoulda macros for easier model testing.
+A pack of shoulda macros for testing Rails apps.
 
 Install
 -------
