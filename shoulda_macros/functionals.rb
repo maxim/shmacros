@@ -11,16 +11,21 @@ module Shmacros
     #
     #    should_rest_route :show, :edit, :update, :singular => true
     #
+    #  Controller name will be guessed for you, but you can override it in case of a bad guess.
+    #  
+    #    should_rest_route :show, :edit, :controller => "Profile"
+    #
     def should_rest_route *actions
       controller = self.name.gsub(/ControllerTest$/, '').underscore
       options = actions.extract_options!
       plural = options[:singular] ? nil : true
-      controller_segment = plural ? controller : controller.singularize
-      if plural
-        actions = actions.empty? ? [:index, :show, :new, :create, :edit, :update, :destroy] : actions
-      else
-        actions = actions.empty? ? [:show, :new, :create, :edit, :update, :destroy] : actions
-      end
+      
+      controller_segment = (options[:controller] || 
+                           (plural && controller.pluralize) || 
+                           controller.singularize).underscore
+      
+      actions = actions.empty? ? [:index, :show, :new, :create, :edit, :update, :destroy] : actions
+      actions.shift if plural
 
       actions.each do |action|
         case action
@@ -36,7 +41,7 @@ module Shmacros
           url = "/#{controller_segment}/new"
         when :create
           method = :post
-          url = "/#{controller_segment}"
+          url = "/#{controller}"
         when :edit
           id = plural && 1
           method = :get

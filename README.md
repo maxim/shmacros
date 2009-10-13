@@ -54,8 +54,7 @@ Functional Macros
 
 - `should_rest_route :show, :new, :create`
 
-  Provides shortcut to declaring multiple `should_route` tests if routes are supposed to be REST-style. If action names are omitted defaults to testing all 7 RESTful actions. Accepts option `:singular => true` for singular routes such as profile or account controller.
-
+  Provides shortcut to declaring multiple `should_route` tests if routes are supposed to be REST-style. If action names are omitted defaults to testing all 7 RESTful actions. Accepts option `:singular => true` for singular routes such as profile or account controller. Usually guesses controller name, but can be overridden with `:controller => "Profile"` option.
 
 Contact/Contribute
 ------------------
