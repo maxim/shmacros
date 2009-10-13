@@ -24,8 +24,10 @@ module Shmacros
                            (plural && controller.pluralize) || 
                            controller.singularize).underscore
       
-      actions = actions.empty? ? [:index, :show, :new, :create, :edit, :update, :destroy] : actions
-      actions.shift unless plural
+      if actions.empty?
+        actions = [:index, :show, :new, :create, :edit, :update, :destroy]
+        actions.shift unless plural
+      end
 
       actions.each do |action|
         case action
